@@ -4,6 +4,7 @@ class Qemu < Formula
   url "https://download.qemu.org/qemu-7.0.0.tar.xz"
   sha256 "f6b375c7951f728402798b0baabb2d86478ca53d44cedbefabbe1c46bf46f839"
   license "GPL-2.0-only"
+  revision 1
   head "https://git.qemu.org/git/qemu.git", branch: "master"
 
   bottle do
@@ -47,6 +48,15 @@ class Qemu < Formula
   resource "homebrew-test-image" do
     url "https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.2/official/FD12FLOPPY.zip"
     sha256 "81237c7b42dc0ffc8b32a2f5734e3480a3f9a470c50c14a9c4576a2561a35807"
+  end
+
+  # Backport f5643914 from QEMU master:
+  # - f5643914 9pfs: various fixes
+  #
+  # See https://gitlab.com/qemu-project/qemu/-/issues/1010
+  patch do
+    url "https://gitlab.com/qemu-project/qemu/-/commit/f5643914a9e8f79c606a76e6a9d7ea82a3fc3e65.diff"
+    sha256 "6a027b5ec201b2092b1231376e0a06a6e5ea92f00ca41c34d022c0e3bde40443"
   end
 
   def install
